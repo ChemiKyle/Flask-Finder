@@ -1,0 +1,26 @@
+<!-- Kyle Chesney, 2017 -->
+
+<!doctype html>
+<title>Rhines Search</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<body>
+  <div class="search">
+    <h1>Materials Science Inventory Search</h1>
+    <h2>Enter search:</h2>
+    <form name="sub_db" action="" method="post">
+      <input type="radio" name="sub_db" value="chem" checked>Chemical</input>
+      <input type="radio" name="sub_db" value="equipment">Equipment</input>
+    </form>
+    <form type="submit" method="post">
+      <input type="text" name="phrase">
+      <input type="submit" name="" value="">
+    </form>
+    <br>
+  </div>
+<div class=page>
+  {% for table in tables %}
+    <h2>{{titles[loop.index]}}</h2>
+    {{ table|safe }}
+  {% endfor %}
+</div>
+</body>
