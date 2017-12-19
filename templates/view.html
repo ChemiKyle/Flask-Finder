@@ -7,13 +7,15 @@
   <div class="search">
     <h1>Materials Science Inventory Search</h1>
     <h2>Enter search:</h2>
-    <form name="table_select" action="" method="post">
-      <input type="radio" name="sub_db" value="chem" checked>Chemical</input>
-      <input type="radio" name="sub_db" value="equipment">Equipment</input>
-    </form>
     <form type="submit" method="post">
-      <input type="text" name="phrase">
-      <input type="submit" name="" value="">
+      <input type="radio" name="sub_db" value="chem" checked>Chemicals</input>
+      <input type="radio" name="sub_db" value="stock">Stock</input>
+      <input type="radio" name="sub_db" value="equipment">Equipment</input>
+      <br><br>
+      <div id="searchbox">
+        <input type="text" name="phrase">
+        <input type="submit" name="" value="">
+      </div>
     </form>
     <br>
   </div>

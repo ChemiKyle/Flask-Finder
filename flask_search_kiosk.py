@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+
+__author__	= "Kyle Chesney"
+
 from flask import *
 import sqlite3
 import pandas as pd
@@ -16,6 +20,7 @@ def chem_search(phrase):
     "Sublocation "
     "FROM chem "
     "WHERE Name LIKE ?")
+    # Sanitize sql queries
     for result in c.execute(cmd, ['%' + phrase + '%']):
         results.append(result)
     return pd.DataFrame(results,
@@ -27,10 +32,13 @@ def main():
 
 @app.route("/", methods=['POST'])
 def do_search():
+    option = str(request.form['sub_db'])
     phrase = str(request.form['phrase'])
-    # TODO: Use radio buttons to select which table to search from
-    # option = str(request.form['sub_db']) # Currently throws bad request error
     df = chem_search(phrase)
+    ### Styling effects
+    # df.set_index(['Name'], inplace=True)
+    # df.index.name = None
+    ###
     return render_template('view.html', tables = [df.to_html()])
 
 if __name__ == "__main__":
