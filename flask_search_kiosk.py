@@ -11,35 +11,55 @@ conn = sqlite3.connect('db/inv.db', check_same_thread = False)
 c = conn.cursor()
 
 
-def chem_search(phrase):
+def search(phrase, option):
     results = []
-    cmd = ("SELECT Name, "
-    "Quantity, "
-    "Unit, "
-    "Location, "
-    "Sublocation "
-    "FROM chem "
-    "WHERE Name LIKE ?")
+    if option == "chem": 
+        cmd = ("SELECT Name, "
+        "Quantity, "
+        "Unit, "
+        "Location, "
+        "Sublocation "
+        "FROM chem "
+        "WHERE Name LIKE ?")
+        columns=["Name", "Quantity", "Unit", "Location", "Shelf"]
+    elif option == "stock":
+        print("Option not yet implemented")
+        cmd = ("SELECT Name, "
+        "Quantity, "
+        "Form, "
+        "Location, "
+        "Sublocation, "
+        "Layer "
+        "FROM stock "
+        "WHERE Name LIKE ?")
+        columns = ["Name", "Quantity", "Form", "Location", "Sublocation",
+        "Shelf"]
+    elif option == "equip":
+        print("Not implemented")
+        cmd = ""
     # Sanitize sql queries
     for result in c.execute(cmd, ['%' + phrase + '%']):
         results.append(result)
-    return pd.DataFrame(results,
-            columns=["Name", "Quantity", "Unit", "Location", "Shelf"])
+    return pd.DataFrame(results, columns=columns)
+
 
 @app.route("/")
 def main():
     return render_template('view.html')
 
+
 @app.route("/", methods=['POST'])
 def do_search():
     option = str(request.form['sub_db'])
     phrase = str(request.form['phrase'])
-    df = chem_search(phrase)
+    df = search(phrase, option)
     ### Styling effects
     # df.set_index(['Name'], inplace=True)
     # df.index.name = None
     ###
     return render_template('view.html', tables = [df.to_html()])
 
+
 if __name__ == "__main__":
     app.run(debug=True)
+
