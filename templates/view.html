@@ -14,12 +14,11 @@
       <br><br>
       <div id="searchbox">
         <input type="text" name="phrase">
-        <input type="submit" name="" value="">
       </div>
     </form>
     <br>
   </div>
-<div class=page>
+<div class="table_result">
   {% for table in tables %}
     {{ table|safe }}
   {% endfor %}

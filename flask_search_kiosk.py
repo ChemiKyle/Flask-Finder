@@ -23,7 +23,6 @@ def search(phrase, option):
         "WHERE Name LIKE ?")
         columns=["Name", "Quantity", "Unit", "Location", "Shelf"]
     elif option == "stock":
-        print("Option not yet implemented")
         cmd = ("SELECT Name, "
         "Quantity, "
         "Form, "
@@ -54,10 +53,11 @@ def do_search():
     phrase = str(request.form['phrase'])
     df = search(phrase, option)
     ### Styling effects
-    # df.set_index(['Name'], inplace=True)
-    # df.index.name = None
+    df.set_index(['Name'], inplace=True)
+    df.index.name = None
     ###
-    return render_template('view.html', tables = [df.to_html()])
+    return render_template('view.html',
+            tables = [df.to_html()]) # Presented as list to allow multisearch
 
 
 if __name__ == "__main__":
