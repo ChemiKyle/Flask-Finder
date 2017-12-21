@@ -1,5 +1,6 @@
-body { font-family: "Gentona", "Quadon", sans-serif;
-       background-color: #fdf6e3;
+body { 
+  font-family: "Gentona", "Quadon", sans-serif;
+  background-color: #fdf6e3; /* Solarized base3 */
 }
 
 a, h1, h2 { color: #377ba8; }
@@ -21,7 +22,7 @@ th {
     color: #000080;
 }
 
-tr:nth-child(odd)	{ background-color:#e6f2ff; }
+tr:nth-child(odd)   { background-color:#e6f2ff; }
 tr:nth-child(even)	{ background-color:#99c2ff; }
 
 tr:hover            { background-color: #009900;}
