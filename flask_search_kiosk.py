@@ -34,8 +34,15 @@ def search(phrase, option):
         columns = ["Name", "Quantity", "Form", "Location", "Sublocation",
         "Shelf"]
     elif option == "equip":
-        print("Not implemented")
-        cmd = ""
+        cmd = ("SELECT Name, "
+        "Quantity, "
+        "Location, "
+        "Sublocation, "
+        "Layer "
+        "FROM equip "
+        "WHERE Name LIKE ?")
+        columns = ["Name", "Quantity", "Location", "Sublocation",
+                "Shelf"]
     # Sanitize sql queries
     for result in c.execute(cmd, ['%' + phrase + '%']):
         results.append(result)
