@@ -56,15 +56,18 @@ def main():
 
 @app.route("/", methods=['POST'])
 def do_search():
-    option = str(request.form['sub_db'])
+    results = []
+    options = request.form.getlist('sub_db')
     phrase = str(request.form['phrase'])
-    df = search(phrase, option)
+    for option in options:
+        df = search(phrase, option)
+        results.append(df.to_html())
     ### Styling effects
     df.set_index(['Name'], inplace=True)
     df.index.name = None
     ###
     return render_template('view.html',
-            tables = [df.to_html()]) # Presented as list to allow multisearch
+            tables = [results]) # Presented as list to allow multisearch
 
 
 if __name__ == "__main__":

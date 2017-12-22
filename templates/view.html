@@ -8,9 +8,11 @@
     <h1>Materials Science Inventory Search</h1>
     <h2>Enter search:</h2>
     <form type="submit" method="post">
-      <input type="radio" name="sub_db" value="chem" checked>Chemicals</input>
-      <input type="radio" name="sub_db" value="stock">Stock</input>
-      <input type="radio" name="sub_db" value="equip">Equipment</input>
+        <select multiple name="sub_db">
+          <option value="chem" checked>Chemicals</input>
+          <option name="sub_db" value="stock">Stock</input>
+          <option value="equip">Equipment</input>
+        </select>
       <br><br>
       <div id="searchbox">
         <input type="text" name="phrase">
