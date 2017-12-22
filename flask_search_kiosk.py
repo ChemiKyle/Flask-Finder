@@ -59,6 +59,7 @@ def do_search():
     results = []
     options = request.form.getlist('sub_db')
     phrase = str(request.form['phrase'])
+    print(options)
     for option in options:
         df = search(phrase, option)
         results.append(df.to_html())
