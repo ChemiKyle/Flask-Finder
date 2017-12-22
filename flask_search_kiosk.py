@@ -67,7 +67,7 @@ def do_search():
     df.index.name = None
     ###
     return render_template('view.html',
-            tables = [results]) # Presented as list to allow multisearch
+            tables = results) # Presented as list to allow multisearch
 
 
 if __name__ == "__main__":
