@@ -13,7 +13,7 @@ c = conn.cursor()
 
 def search(phrase, option):
     results = []
-    if option == "chem": 
+    if option == "chemicals": 
         cmd = ("SELECT Name, "
         "Quantity, "
         "Unit, "
@@ -33,7 +33,7 @@ def search(phrase, option):
         "WHERE Name LIKE ?")
         columns = ["Name", "Quantity", "Form", "Location", "Sublocation",
         "Shelf"]
-    elif option == "equip":
+    elif option == "equipment":
         cmd = ("SELECT Name, "
         "Quantity, "
         "Location, "
@@ -62,11 +62,15 @@ def do_search():
     print(options)
     for option in options:
         df = search(phrase, option)
-        results.append(df.to_html())
-    ### Styling effects
-    df.set_index(['Name'], inplace=True)
-    df.index.name = None
-    ###
+        ### Styling effects
+#        df.set_index(['Name'], inplace=True)
+#        df.index.name = None
+        ###
+        if not df.empty:
+            results.append("<h2>Results in {}:</h2>".format(option))
+            results.append(df.to_html())
+        else:
+            results.append("<h2>No results in {} </h2><br>".format(str(option)))
     return render_template('view.html',
             tables = results) # Presented as list to allow multisearch
 
