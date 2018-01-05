@@ -59,7 +59,6 @@ def do_search():
     results = []
     options = request.form.getlist('sub_db')
     phrase = str(request.form['phrase'])
-    print(options)
     for option in options:
         df = search(phrase, option)
         ### Styling effects
@@ -70,7 +69,7 @@ def do_search():
             results.append("<h2>Results in {}:</h2>".format(option))
             results.append(df.to_html())
         else:
-            results.append("<h2>No results in {} </h2><br>".format(str(option)))
+            results.append("<h2>No results in {} </h2><br>".format(option))
     return render_template('view.html',
             tables = results) # Presented as list to allow multisearch
 
