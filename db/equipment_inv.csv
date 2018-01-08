@@ -1,0 +1,6 @@
+Name,Quantity,Location,Sublocation,Layer
+Digital calipers,16,bench_2,drawers_n_m,
+Extech 382200 power supply,4,bench_2,cabinet_n,1
+Arduino uno,17,bench_2,drawers_s_m,
+Soldering iron,9,bench_2,drawers_e_r,1
+Amprobe 5XP-A multimeter (red),4,bench_2,drawers_e_l,2
