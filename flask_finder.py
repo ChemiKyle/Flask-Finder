@@ -18,10 +18,11 @@ def search(phrase, option):
         "Quantity, "
         "Unit, "
         "Location, "
-        "Sublocation "
+        "Sublocation, "
+        "Layer "
         "FROM chem "
         "WHERE Name LIKE ?")
-        columns=["Name", "Quantity", "Unit", "Location", "Shelf"]
+        columns=["Name", "Quantity", "Unit", "Location", "Sublocation", "Shelf"]
     elif option == "stock":
         cmd = ("SELECT Name, "
         "Quantity, "

@@ -1,6 +1,6 @@
-Name,CAS,Container,Quantity,Unit,MSDS,Location,Sublocation,State
-Acetone,67-64-1,Various,6,4 L ,http://physics.utsa.edu/memslab/MSDS/Acetone.pdf,solvents_r,,
-Aluminum Oxide,1344-28-1,J01W027,1,500 g,http://www.sciencelab.com/msds.php?msdsId=9922858,chemicals_r,2,S
-Ammonium Hydroxide,1336-21-6,A038600250,1,25 mL,http://www.sciencelab.com/msds.php?msdsId=9922918,base,,L
-Citric acid,77-92-9,174440,1,500 g,http://www.sciencelab.com/msds.php?msdsId=9923494,chemicals_l,1,S
-Ethylene glycol,107-21-1,188691,2,15 mL,http://www.fishersci.com/ecomm/servlet/msdsproxy?productName=E1774&productDescription=%26%23160%3BEthylene+Glycol+%28Laboratory%29%2C+Fisher+Chemical&catNo=E177-4&vendorId=VN00033897&storeId=10652,chemicals_l,2,L
+Name,CAS,Container,Quantity,Unit,MSDS,Location,Sublocation,Layer,State
+Acetone,67-64-1,Various,6,4 L ,http://physics.utsa.edu/memslab/MSDS/Acetone.pdf,solvents_r,,,
+Aluminum Oxide,1344-28-1,J01W027,1,500 g,http://www.sciencelab.com/msds.php?msdsId=9922858,chemicals_r,,2,S
+Ammonium Hydroxide,1336-21-6,A038600250,1,25 mL,http://www.sciencelab.com/msds.php?msdsId=9922918,base,,,L
+Citric acid,77-92-9,174440,1,500 g,http://www.sciencelab.com/msds.php?msdsId=9923494,chemicals_l,,1,S
+Ethylene glycol,107-21-1,188691,2,15 mL,http://www.fishersci.com/ecomm/servlet/msdsproxy?productName=E1774&productDescription=%26%23160%3BEthylene+Glycol+%28Laboratory%29%2C+Fisher+Chemical&catNo=E177-4&vendorId=VN00033897&storeId=10652,chemicals_l,,2,L
