@@ -5,6 +5,8 @@ raspberry pi. Includes toggles for searching chemicals, stock, and
 equipment separately. 
 Written using flask, pandas, and sqlite3. Can be hosted locally or on the web.
 
+![In action](/img/example.png "Use example")
+
 ## Preparation
 Fill in inventories in a .csv file, in `/db` (more verbose insctructions located in the `/db` folder), run the `update_*.sh` scripts to store a dated copy of the current inventory and fill a sqlite database. No knowledge of SQL needed!
 
