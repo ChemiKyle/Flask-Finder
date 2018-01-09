@@ -5,13 +5,14 @@ __author__	= "Kyle Chesney"
 from flask import *
 import sqlite3
 import pandas as pd
+from datetime import datetime as dt
 
 app = Flask(__name__)
-conn = sqlite3.connect('db/inv.db', check_same_thread = False)
-c = conn.cursor()
 
 
 def search(phrase, option):
+    conn = sqlite3.connect('db/inv.db', check_same_thread = False)
+    c = conn.cursor()
     results = []
     if option == "chemicals": 
         cmd = ("SELECT Name, "
@@ -49,6 +50,16 @@ def search(phrase, option):
         results.append(result)
     return pd.DataFrame(results, columns=columns)
 
+def log_query(phrase):
+    conn = sqlite3.connect('db/log.db', check_same_thread = False)
+    stamp = list(dt.now().timetuple()[0:6])
+    srch = stamp.insert(0, phrase)
+    cmd = ("INSERT INTO log "
+            "(Phrase, Year, Month, Day, Hour, Minute, Second) "
+            "VALUES "
+            "(?, ?, ?, ?, ?, ?, ?);")
+    conn.execute(cmd, srch);
+    conn.commit()
 
 @app.route("/")
 def main():
@@ -60,6 +71,7 @@ def do_search():
     results = []
     options = request.form.getlist('sub_db')
     phrase = str(request.form['phrase'])
+    log_query(phrase)
     for option in options:
         df = search(phrase, option)
         ### Styling effects
