@@ -53,12 +53,12 @@ def search(phrase, option):
 def log_query(phrase):
     conn = sqlite3.connect('db/log.db', check_same_thread = False)
     stamp = list(dt.now().timetuple()[0:6])
-    srch = stamp.insert(0, phrase)
+    stamp.insert(0, str(phrase))
     cmd = ("INSERT INTO log "
             "(Phrase, Year, Month, Day, Hour, Minute, Second) "
             "VALUES "
-            "(?, ?, ?, ?, ?, ?, ?);")
-    conn.execute(cmd, srch);
+            "(?, ?, ?, ?, ?, ?, ?)")
+    conn.execute(cmd, stamp);
     conn.commit()
 
 @app.route("/")
