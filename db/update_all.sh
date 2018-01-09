@@ -9,23 +9,12 @@ fi
 # Chemical
 sqlite3 inv.db <<EOF
 DROP TABLE chem;
-.mode csv
-.import chem_inv.csv chem
-.exit
-EOF
-
-# Equipment
-sqlite3 inv.db <<EOF
 DROP TABLE equip;
-.mode csv
-.import equipment_inv.csv equip
-.exit
-EOF
-
-# Stock
-sqlite3 inv.db <<EOF
 DROP TABLE stock;
 .mode csv
+.import chem_inv.csv chem
+.import equipment_inv.csv equip
 .import stock_inv.csv stock
 .exit
 EOF
+
