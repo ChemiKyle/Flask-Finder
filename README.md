@@ -8,7 +8,8 @@ Written using flask, pandas, and sqlite3. Can be hosted locally or on the web.
 ![In action](/img/example.png "Use example")
 
 ## Preparation
-Fill in inventories in a .csv file, in `/db` (more verbose insctructions located in the `/db` folder), run the `update_*.sh` scripts to store a dated copy of the current inventory and fill a sqlite database. No knowledge of SQL needed!
+If installing on a fresh pi, open a terminal and enter `sudo apt-get install python3-scipy && pip install flask`, then go get a coffee because that'll take a while.  
+Fill in inventories in the .csv files in `/db` (more verbose instructions located in the `/db` folder), then run the `update_all.sh` script to fill sqlite database. No knowledge of SQL needed!
 
 ## Use
 1. Open a terminal session in the folder where the program has been downloaded
@@ -16,4 +17,5 @@ Fill in inventories in a .csv file, in `/db` (more verbose insctructions located
 3. Open the web browser and point it at the address flask runs the web app on (typically `127.0.0.1:5000`). 
 
 ## TODO: 
-- [ ] Add logging of queries, use R to generate monthly reports of search terms and times
+- [x] Add logging of queries
+- [ ] use ~R~ Python with `Seaborn` to generate monthly reports of search terms and times
