@@ -51,7 +51,7 @@ def search(phrase, option):
     return pd.DataFrame(results, columns=columns)
 
 def log_query(phrase):
-    conn = sqlite3.connect('db/log.db', check_same_thread = False)
+    conn = sqlite3.connect('log/log.db', check_same_thread = False)
     stamp = list(dt.now().timetuple()[0:6])
     stamp.insert(0, str(phrase))
     cmd = ("INSERT INTO log "
