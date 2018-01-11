@@ -18,4 +18,5 @@ Fill in inventories in the .csv files in `/db` (more verbose instructions locate
 
 ## TODO: 
 - [x] Add logging of queries
-- [ ] use ~R~ Python with `Seaborn` to generate monthly reports of search terms and times
+- [x] use ~R~ Python with `seaborn` to generate monthly reports of search terms and times
+- [ ] Integrate use reporting to web interface
