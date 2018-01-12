@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 import sqlite3
-from datetime import datetime as dt
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from datetime import datetime as dt
 
 
 def fetch_data(yr = '*', mnth = '*'):
@@ -14,22 +14,36 @@ def fetch_data(yr = '*', mnth = '*'):
     return pd.read_sql_query(cmd, conn, params = [yr, mnth])
     conn.close()
 
+
 def hourly_x_daily(df):
-    sns.jointplot("Day", "Hour", data = df, kind = "hex")
+    sns.jointplot("Day", "Hour", data = df, stat_func = None,
+            ylim = (0, 24), xlim = (1, 31))
     sns.plt.show()
+
 
 def hourly_x_weekday(df):
-    sns.jointplot("Weekday", "Hour", data = df, kind = "hex")
+    sns.jointplot("Weekday", "Hour", data = df, stat_func = None,
+            ylim = (0, 24), xlim = (0, 6))
     sns.plt.show()
 
+
 def hourly(df):
-    sns.distplot(df["Hour"])
+    sns.distplot(df["Hour"]).set(xlim=(0,24))
     sns.plt.show()
+
+
+def top_terms(df):
+    search_terms = df["Phrase"].value_counts().head()
+    sns.barplot(search_terms)
+    sns.plt.show()
+
 
 def main():
     d = dt.today()
     df = fetch_data(d.year, d.month)
-    hourly(df)
+    hourly_x_weekday(df)
+
 
 if __name__ == "__main__":
     main()
+
