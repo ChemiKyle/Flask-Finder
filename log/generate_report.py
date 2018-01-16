@@ -17,25 +17,25 @@ def fetch_data(yr = '*', mnth = '*'):
 
 def hourly_x_daily(df):
     sns.jointplot("Day", "Hour", data = df, stat_func = None,
-            ylim = (0, 24), xlim = (1, 31))
-    sns.plt.show()
+            ylim = (24, 0), xlim = (1, 31))
+    plt.show()
 
 
 def hourly_x_weekday(df):
     sns.jointplot("Weekday", "Hour", data = df, stat_func = None,
-            ylim = (0, 24), xlim = (0, 6))
-    sns.plt.show()
+            ylim = (24, 0), xlim = (0, 6), color = "orange")
+    plt.show()
 
 
 def hourly(df):
     sns.distplot(df["Hour"]).set(xlim=(0,24))
-    sns.plt.show()
+    plt.show()
 
 
 def top_terms(df):
     search_terms = df["Phrase"].value_counts().head()
     sns.barplot(search_terms)
-    sns.plt.show()
+    plt.show()
 
 
 def main():
@@ -45,5 +45,6 @@ def main():
 
 
 if __name__ == "__main__":
+    sns.set()
     main()
 
