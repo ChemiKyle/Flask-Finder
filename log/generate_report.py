@@ -8,7 +8,7 @@ import seaborn as sns
 from datetime import datetime as dt
 
 
-def fetch_data(yr = '*', mnth = '*'):
+def fetch_data(yr = dt.today().year, mnth = dt.today().month):
     conn = sqlite3.connect('log.db')
     cmd = ("SELECT * FROM log WHERE "
             "Year = ? AND Month = ?;")
@@ -23,11 +23,11 @@ def hourly_x_daily(df):
 
 
 def hourly_x_weekday(df):
-    cmap = plt.cm.plasma
+    cmap = plt.cm.viridis
     h_x_w = sns.jointplot("Weekday", "Hour", data = df, stat_func = None,
-            ylim = (24, 0), xlim = (0, 6), color = cmap(0.5), cmap = cmap,
+            ylim = (24, 0), xlim = (0, 6), alpha = 0.3, cmap = cmap,
             kind = "hex",
-            marginal_kws = dict(bins = 7, rug = False),
+            marginal_kws = dict(bins = 7, rug = True),
             joint_kws = dict(gridsize = 6))
     plt.figure()
 
@@ -51,7 +51,7 @@ def top_terms(df):
 def main():
     sns.set()
     d = dt.today()
-    df = fetch_data(d.year, d.month)
+    df = fetch_data()
     hourly_x_weekday(df)
     top_terms(df)
     plt.show()

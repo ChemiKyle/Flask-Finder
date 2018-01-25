@@ -6,6 +6,8 @@ from flask import *
 import sqlite3
 import pandas as pd
 from datetime import datetime as dt
+from log import generate_report as gr
+import bokeh.plotting as plt
 
 app = Flask(__name__)
 
@@ -87,6 +89,9 @@ def do_search():
     return render_template('view.html',
             tables = results) # Presented as list to allow multisearch
 
+@app.route("/log", methods = ['POST'])
+def generate_report():
+    df = gr.fetch_data()
 
 if __name__ == "__main__":
     app.run(debug=True)
