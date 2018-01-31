@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 import seaborn as sns
 from datetime import datetime as dt
+import mpld3
 
 
 def fetch_data(yr = dt.today().year, mnth = dt.today().month):
@@ -29,11 +30,22 @@ def hourly_x_weekday(df):
             kind = "hex",
             marginal_kws = dict(bins = 7, rug = True),
             joint_kws = dict(gridsize = 6))
+    weekdays = ["Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"]
+    h_x_w.ax_joint.set_xticklabels(weekdays,
+            rotation = 30)
+    #return h_x_w
     plt.figure()
 
 
 def hourly(df):
-    sns.distplot(df["Hour"]).set(xlim=(0,24))
+    hrl = sns.distplot(df["Hour"]).set(xlim=(0,24))
+    return hrl
 
 
 def top_terms(df):
@@ -45,6 +57,7 @@ def top_terms(df):
     trms.yaxis.set_major_locator(MaxNLocator(integer = True))
     trms.set_xticklabels(trms.get_xticklabels(),
             rotation = 30)
+    #return trms
     plt.figure()
 
 
