@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 import seaborn as sns
 from datetime import datetime as dt
-import mpld3
+#import mpld3
 
 
 def fetch_data(yr = dt.today().year, mnth = dt.today().month):
