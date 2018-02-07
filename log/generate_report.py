@@ -9,13 +9,25 @@ from datetime import datetime as dt
 #import mpld3
 
 
-def fetch_data(yr = dt.today().year, mnth = dt.today().month):
+def fetch_data(now = dt.now().strftime('%Y-%m')):
     conn = sqlite3.connect('log.db')
-    cmd = ("SELECT * FROM log WHERE "
-            "Year = ? AND Month = ?;")
-    return pd.read_sql_query(cmd, conn, params = [yr, mnth])
+    cmd = ("SELECT * FROM log "
+            "WHERE Datetime LIKE ?;")
+    return pd.read_sql_query(cmd, conn,
+            params = [str(now) + '%'])
     conn.close()
 
+
+def unroll_dt(df):
+    df['Weekday'] = pd.to_numeric(df.Weekday)
+    df.Datetime = pd.to_datetime(df.Datetime)
+    df['Year'] = df['Datetime'].dt.year
+    df['Month'] = df['Datetime'].dt.month
+    df['Day'] = df['Datetime'].dt.day
+    df['Hour'] = df['Datetime'].dt.hour
+    df['Minute'] = df['Datetime'].dt.minute
+    df['Second'] = df['Datetime'].dt.second
+    return df
 
 def hourly_x_daily(df):
     sns.jointplot("Day", "Hour", data = df, stat_func = None,
@@ -64,7 +76,7 @@ def top_terms(df):
 def main():
     sns.set()
     d = dt.today()
-    df = fetch_data()
+    df = unroll_dt(fetch_data())
     hourly_x_weekday(df)
     top_terms(df)
     plt.show()
