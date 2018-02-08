@@ -7,7 +7,8 @@ import sqlite3
 import pandas as pd
 from datetime import datetime as dt
 from log import generate_report as gr
-import bokeh.plotting as plt
+from io import BytesIO
+import base64
 
 app = Flask(__name__)
 
@@ -54,13 +55,12 @@ def search(phrase, option):
 
 def log_query(phrase):
     conn = sqlite3.connect('log/log.db', check_same_thread = False)
-    stamp = list(dt.now().timetuple()[0:6])
-    stamp.insert(0, dt.today().isoweekday())
-    stamp.insert(0, str(phrase))
+    t = dt.now()
+    stamp = [phrase, t.strftime("%w"), t.strftime("%Y-%m-%d %H:%M:%S")]
     cmd = ("INSERT INTO log "
-            "(Phrase, Weekday, Year, Month, Day, Hour, Minute, Second) "
+            "(Phrase, Weekday, Datetime) "
             "VALUES "
-            "(?, ?, ?, ?, ?, ?, ?, ?)")
+            "(?, ?, ?)")
     conn.execute(cmd, stamp);
     conn.commit()
 
@@ -89,9 +89,17 @@ def do_search():
     return render_template('view.html',
             tables = results) # Presented as list to allow multisearch
 
-@app.route("/log", methods = ['POST'])
+@app.route("/", methods = ['POST'])
 def generate_report():
     df = gr.fetch_data()
+    img = BytesIO()
+    gr.top_terms(df)
+    gr.plt.savefig(img, format ='png')
+    img.seek(0)
+
+    plot_url = base64.b64encode(img.getvalue())
+
+    return render_template('view.html', plot_url=plot_url)
 
 if __name__ == "__main__":
     app.run(debug=True)
