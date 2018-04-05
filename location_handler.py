@@ -57,6 +57,8 @@ class LocationsMapper(object):
             loc_names = [locs[0] for locs in loc_names if locs[0] != '']
             for loc in loc_names:
                 all_location_names.add(loc)
+        conn.commit()
+        conn.close()
         return all_location_names
 
     def get_image_files(self):
