@@ -10,11 +10,14 @@ from log import generate_report as gr
 from io import BytesIO
 import base64
 
+from location_handler import LocationsMapper
+
 app = Flask(__name__)
+obj_loc_map = LocationsMapper()
 
 
 def search(phrase, option):
-    conn = sqlite3.connect('db/inv.db', check_same_thread = False)
+    conn = sqlite3.connect('db/inv.db', check_same_thread=False)
     c = conn.cursor()
     results = []
     if option == "chemicals": 
@@ -53,6 +56,7 @@ def search(phrase, option):
         results.append(result)
     return pd.DataFrame(results, columns=columns)
 
+
 def log_query(phrase):
     conn = sqlite3.connect('log/log.db', check_same_thread = False)
     t = dt.now()
@@ -61,8 +65,9 @@ def log_query(phrase):
             "(Phrase, Weekday, Datetime) "
             "VALUES "
             "(?, ?, ?)")
-    conn.execute(cmd, stamp);
+    conn.execute(cmd, stamp)
     conn.commit()
+
 
 @app.route("/")
 def main():
@@ -83,23 +88,37 @@ def do_search():
         ###
         if not df.empty:
             results.append("<h2>Results in {}:</h2>".format(option))
-            results.append(df.to_html())
+            # insert <script> <style> and <html> into pandas .to_html()
+            html = df.to_html()
+            html_lines = html.split('\n')
+            addition = obj_loc_map.make_location_html()
+            new_html = [addition]
+            for line in html_lines:
+                for name in obj_loc_map.loc_names:
+                    search_key = '<td>{}</td>'.format(name)
+                    new_key = '<td onMouseOver=showDiv(getElementById("{n}")) onMouseOut=hideDiv(getElementById("{n}"))>{n}</td>'.format(n=name)
+                    if search_key in line:
+                        line = line.replace(search_key, new_key)
+                new_html.append(line)
+            new_html = '\n'.join(new_html)
+            results.append(new_html)
         else:
             results.append("<h2>No results in {} </h2><br>".format(option))
-    return render_template('view.html',
-            tables = results) # Presented as list to allow multisearch
+    return render_template('view.html', tables=results) # Presented as list to allow multisearch
 
-@app.route("/", methods = ['POST'])
+
+@app.route("/", methods=['POST'])
 def generate_report():
     df = gr.fetch_data()
     img = BytesIO()
     gr.top_terms(df)
-    gr.plt.savefig(img, format ='png')
+    gr.plt.savefig(img, format='png')
     img.seek(0)
 
     plot_url = base64.b64encode(img.getvalue())
 
     return render_template('view.html', plot_url=plot_url)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
