@@ -37,7 +37,7 @@ def hourly_x_daily(df):
 
 def hourly_x_weekday(df):
     cmap = plt.cm.viridis
-    h_x_w = sns.jointplot("Weekday", "Hour", data = df, stat_func = None,
+    h_x_w = sns.jointplot("Weekday", df.Hour + df.Minute/60., data = df, stat_func = None,
             ylim = (24, 0), xlim = (0, 6), alpha = 0.3, cmap = cmap,
             kind = "hex",
             marginal_kws = dict(bins = 7, rug = True),
