@@ -30,18 +30,21 @@ def unroll_dt(df):
     return df
 
 def hourly_x_daily(df):
-    sns.jointplot("Day", "Hour", data = df, stat_func = None,
+    h_x_d = sns.jointplot("Day", "Hour", data = df, stat_func = None,
             ylim = (24, 0), xlim = (1, 31),
             kind = "hex")
+    h_x_d.plot_joint(plt.scatter, c = "0.42", marker = "+", alpha = 0.5)
+    plt.figure()
+
 
 
 def hourly_x_weekday(df):
-    cmap = plt.cm.viridis
+    cmap = plt.cm.inferno
     h_x_w = sns.jointplot("Weekday", df.Hour + df.Minute/60., data = df, stat_func = None,
             ylim = (24, 0), xlim = (0, 6), alpha = 0.3, cmap = cmap,
             kind = "hex",
             marginal_kws = dict(bins = 7, rug = True),
-            joint_kws = dict(gridsize = 6))
+            joint_kws = dict(gridsize = 7))
     weekdays = ["Sunday",
             "Monday",
             "Tuesday",
@@ -51,7 +54,8 @@ def hourly_x_weekday(df):
             "Saturday"]
     h_x_w.ax_joint.set_xticklabels(weekdays,
             rotation = 30)
-    #return h_x_w
+    h_x_w.plot_joint(plt.scatter, c = "0.42", marker = "+", alpha = 0.5)
+    h_x_w.set_axis_labels("Weekday", "Hour")
     plt.figure()
 
 
