@@ -96,7 +96,7 @@ def do_search():
             for line in html_lines:
                 for name in obj_loc_map.loc_names:
                     search_key = '<td>{}</td>'.format(name)
-                    new_key = '<td onMouseOver=showDiv(getElementById("{n}")) onMouseOut=hideDiv(getElementById("{n}"))>{n}</td>'.format(n=name)
+                    new_key = '<td onMouseOver=showDiv(getElementById("{n}"),event) onMouseOut=hideDiv(getElementById("{n}"))>{n}</td>'.format(n=name)
                     if search_key in line:
                         line = line.replace(search_key, new_key)
                 new_html.append(line)

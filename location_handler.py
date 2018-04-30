@@ -67,8 +67,8 @@ class LocationsMapper(object):
 
     def make_location_html(self):
         script_string = '<script>'
-        script_string += '\nfunction showDiv(element) {\n\t'
-        script_string += 'element.style.display = "block";\n}\n'
+        script_string += '\nfunction showDiv(div_el,e) {\n\t'
+        script_string += 'div_el.style.display = "block";\n\tdiv_el.style.left = e.clientX+"px";\n\tdiv_el.style.top = e.clientY+"px";\n}\n'
         script_string += '\nfunction hideDiv(element) {\n\t'
         script_string += 'element.style.display = "none";\n}\n'
         script_string += '</script>\n\n'
